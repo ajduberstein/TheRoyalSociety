@@ -29,6 +29,7 @@ class TheRoyalSocietyApp : public AppBasic {
   private:
 	 Font master_font_;
 	 gl::Texture master_texture_font_;
+	 bool display_help;
 	 Vec2f master_size;
 	  //LinkedList shapes_;
 };
@@ -44,6 +45,9 @@ void TheRoyalSocietyApp::prepareSettings(Settings *settings){
 void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
     if( event.getChar() == 'j' ){
     } 
+	else if (event.getChar() == '?'){
+		display_help = !(display_help);
+	}
 	else if( event.getChar() == 'k' ){
     }
 	else if( event.getChar() == '~' ){
@@ -62,6 +66,7 @@ void TheRoyalSocietyApp::setup(){
 		master_font_ = Font("Helvetica",32);
 		master_size = Vec2f( 100, 100 );
 		render();
+		display_help = true;
 }
 
 void TheRoyalSocietyApp::render()
@@ -88,14 +93,14 @@ void TheRoyalSocietyApp::update()
 void TheRoyalSocietyApp::draw()
 {
 	// clears out the window with black
-/*	gl::clear( Color( 0, 0, 0 ) );
+	gl::clear( Color( 0, 0, 0 ) );
 	gl::color(Color8u(0,255,0));
 	gl::drawSolidCircle(Vec2f(65.0f,65.0f),50.0f,5);
 	gl::color(Color8u(240,255,0));
 	gl::drawSolidCircle(Vec2f(55.0f,55.0f),50.0f,5);
 	gl::color(Color8u(255,255,0));
-	gl::drawSolidCircle(Vec2f(255.0f,255.0f),50.0f,4);*/
-	if (master_texture_font_)
+	gl::drawSolidCircle(Vec2f(255.0f,255.0f),50.0f,4);
+	if (master_texture_font_ && display_help)
 		gl::draw(master_texture_font_);
 }
 
