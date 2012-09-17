@@ -26,13 +26,17 @@ struct Node{
 class LinkedList : public AppBasic {
 	public:
 		//TODO Activate this
-		LinkedList(const std::vector<Shape>& array);
-		void insertAfter(Node* input_marker, Shape new_instance);
+		//LinkedList(const std::vector<Shape>& array);
+		//TODO Activate this
+		void insertAfter(Node* input_marker, /*Shape*/ int new_instance);
 		void remove();
 		void at();
-		string LinkedList::toString();
+		void printList();
+		void addToFront(int new_instance);
+		void removeNode(int index);
 	private:
 		Node *root;
+		Node *tail;
 		int num_items;
 		int front_index;
 };
@@ -48,27 +52,40 @@ LinkedList::LinkedList(const std::vector<Shape>& array){
 }
 */
 
+/**
+ * Adds an item to the front of the list.
+ *
+ */
 void LinkedList::addToFront(int new_instance){
-	node *tmp;
-	tmp = (node*)malloc(sizeof(node));
-	tmp->data = info;
+	Node *tmp;
+	tmp = (Node*)malloc(sizeof(Node));
+	tmp->data = new_instance;
 	tmp->next = root;
-	root = temp;
+	root = tmp;
 }
 
 
 /**
+ * Inserts an item after a specified index.
  * TODO Activate this
- *
  */
 void LinkedList::insertAfter(Node* input_marker, /*Shape*/ int new_instance){
 	Node* tmp_p = new Node;
-	tmp_p -> /*shape*/ current = new_instance;
+	tmp_p -> /*shape*/ data = new_instance;
 	tmp_p -> next = input_marker -> next;
 }
 
-string LinkedList::toString(){
-	root = new Node;
-	root->shape=array[0];
-	root->next=p;
+/**
+ * Prints to a string all the items in a linked list
+ * 
+ */
+void LinkedList::printList(){
+}
+
+/**
+ * Deletes node from list
+ *
+ */
+void LinkedList::removeNode(int index){
+	
 }
