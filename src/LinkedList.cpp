@@ -23,7 +23,7 @@ struct Node{
 	Node* next;
 }*p;
 
-class LinkedList : public AppBasic {
+class LinkedList {
 	public:
 		//TODO Activate this
 		//LinkedList(const std::vector<Shape>& array);

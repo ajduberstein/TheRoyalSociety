@@ -69,9 +69,8 @@ void TheRoyalSocietyApp::setup(){
 		display_help = true;
 }
 
-void TheRoyalSocietyApp::render()
-{
-	string txt = "Welcome to the window manager!\n Keybindings: \n j      Moves shapes down \n k      Moves shapes up \n ~     Reverses shape order \n y     Selects foremost shape \n p     Pastes shapes(s)";
+void TheRoyalSocietyApp::render(){
+	string txt = "Welcome to the window manager!\n\n Keybindings: \n j      Moves shapes down \n k      Moves shapes up \n ~     Reverses shape order \n y     Selects foremost shape \n p     Pastes shapes(s)";
 	TextBox tbox = TextBox().alignment( TextBox::CENTER ).font(master_font_).size( Vec2i( 512, 511) ).text( txt );
 	tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
 	tbox.setBackgroundColor( ColorA( 0.5, 0, 0, 1 ) );
@@ -90,8 +89,7 @@ void TheRoyalSocietyApp::update()
 }
 
 
-void TheRoyalSocietyApp::draw()
-{
+void TheRoyalSocietyApp::draw(){
 	// clears out the window with black
 	gl::clear( Color( 0, 0, 0 ) );
 	gl::color(Color8u(0,255,0));

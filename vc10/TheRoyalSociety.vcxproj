@@ -105,7 +105,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\LinkedList.cpp" />
-    <ClCompile Include="..\src\LinkedListTest.cpp" />
     <ClCompile Include="..\src\TheRoyalSocietyApp.cpp" />
   </ItemGroup>
   <ItemGroup>
