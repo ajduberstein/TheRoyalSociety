@@ -9,7 +9,7 @@
 #include "cinder/Cinder.h"
 #include "cinder/Font.h"
 #include "cinder/ImageIo.h"
-
+#include <vector>
 //#include "TheRoyalSocietyApp.h"
 
 using namespace ci;
@@ -31,7 +31,8 @@ class TheRoyalSocietyApp : public AppBasic {
 	 gl::Texture master_texture_font_;
 	 bool display_help;
 	 Vec2f master_size;
-	  //LinkedList shapes_;
+	 const static int kInitialNumberOfShapes = 5;
+	 std::vector<int> shape_id_;
 };
 
 void TheRoyalSocietyApp::prepareSettings(Settings *settings){
@@ -67,6 +68,9 @@ void TheRoyalSocietyApp::setup(){
 		master_size = Vec2f( 100, 100 );
 		render();
 		display_help = true;
+		int id_tmp[] = {1,2,3,4,5};
+		shape_id_ = std::vector<int>(kInitialNumberOfShapes);
+		shape_id_.assign(id_tmp,id_tmp+4);
 }
 
 void TheRoyalSocietyApp::render(){
@@ -85,9 +89,7 @@ void TheRoyalSocietyApp::mouseDown( MouseEvent event )
 
 void TheRoyalSocietyApp::update()
 {
-
 }
-
 
 void TheRoyalSocietyApp::draw(){
 	// clears out the window with black
@@ -98,6 +100,28 @@ void TheRoyalSocietyApp::draw(){
 	gl::drawSolidCircle(Vec2f(55.0f,55.0f),50.0f,5);
 	gl::color(Color8u(255,255,0));
 	gl::drawSolidCircle(Vec2f(255.0f,255.0f),50.0f,4);
+	for (int i = 0; i < 3; i++){
+		if (shape_id_[i] == 1){
+			gl::color(Color8u(0,0,200));
+			gl::drawSolidCircle(Vec2f(300,300),200,1000);
+		}
+		else if (shape_id_[i] == 2){
+			gl::color(Color8u(0,0,200));
+			gl::drawSolidCircle(Vec2f(400,400),200,1100);
+		}
+		else if (shape_id_[i] == 3){
+			gl::color(Color8u(0,0,200));
+			gl::drawSolidCircle(Vec2f(500,500),200,1200);
+		}
+		else if (shape_id_[i] == 4){
+			gl::color(Color8u(0,0,200));
+			gl::drawSolidCircle(Vec2f(300,300),200,1000);
+		}
+		else{
+			break;
+		}
+	}
+	gl::color(Color8u(200,200,200));
 	if (master_texture_font_ && display_help)
 		gl::draw(master_texture_font_);
 }
