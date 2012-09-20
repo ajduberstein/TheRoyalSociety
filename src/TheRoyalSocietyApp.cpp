@@ -1,3 +1,5 @@
+/*CSE 274 students, I draw a textbox under the render() method.*/
+
 #include "cinder/app/AppBasic.h"
 #include "cinder/Rand.h"
 #include "cinder/Color.h"
