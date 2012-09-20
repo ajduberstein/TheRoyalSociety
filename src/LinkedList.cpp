@@ -1,39 +1,25 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "Resources.h"
-#include <vector>
-#include <string.h>
-//#include "TheRoyalSocietyApp.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-//TODO ACTIVATE THIS
-/*struct Shape{
-		float topRightCorner;
-		float bottomLeftCorner;
-		float radius;
-		int sides;
-};
-*/
 struct Node{
-	//TODO ACTIVATE THIS Shape shape;
 	int data;
 	Node* next;
-	Node(int x) : data(x){}
-}*p;
+	Node(int x) : data(x), next(NULL){}
+};
 
 class LinkedList {
 	public:
-		//TODO Activate this
-		LinkedList(int array[], int arrlen);
-		void insertAfter(Node* input_marker, /*Shape*/ int new_instance);
-		void remove();
-		void at();
-		void printList();
-		void addToFront(int new_instance);
-		void removeNode(int index);
+		LinkedList() : root_(NULL) {}
+		~LinkedList();
+		void addNode(int info);
+		void remove(int info);
+		Node* at(int index);
+		void reverse();
 	private:
 		Node *root_;
 		Node *tail_;
@@ -41,62 +27,44 @@ class LinkedList {
 		int front_index_;
 };
 
-//TODO Activate this
-//Credit to SO user Seth Carnegie for this constructor. Code viewable at
-//stackoverflow.com/questions/7298781/constructor-for-linkedlist-to-recieve-an-array-c
-//I've modified it to work with the node struct above.
-LinkedList::LinkedList(int array[], int arrlen)
-{
-    root_->data = array[0]; //setData method stores the integer at position 0 inside headPtr
-
-    Node *cur = root_;
-
-    for (int i = 0; i < arrlen; ++i)    //for loop to add the integers to the next node
-    {
-    //    cur->next =  new Node; //creates a new node with the integer value of array position i
-
-    }
-}
-
-/**
- * Adds an item to the front of the list.
- *
+/*Credit to 
+ *http://codereview.stackexchange.com/questions/4628/circular-linked-list-c
+ *for circular linked list destructor and the insertion method 
  */
-void LinkedList::addToFront(int new_instance){
-	Node *tmp;
-	tmp = (Node*)malloc(sizeof(Node));
-	tmp->data = new_instance;
-	tmp->next = root_;
-	root_ = tmp;
-}
-
-
-/**
- * Inserts an item after a specified index.
- * TODO Activate this
- */
-void LinkedList::insertAfter(Node* input_marker, /*Shape*/ int new_instance){
-//	Node* tmp_p = new Node;
-//	tmp_p -> /*shape*/ data = new_instance;
-//	tmp_p -> next = input_marker -> next;
-}
-
-/**
- * Prints to a string all the items in a linked list
- * 
- */
-void LinkedList::printList(){
-	Node* cur = root_;
-	while(cur != NULL){
-		console() << &cur << std::endl;
-		cur = cur->next;
+LinkedList::~LinkedList(){
+	if (root_){
+		Node* tmp = root_;
+		while (tmp->next!=root_){
+			Node* t = tmp;
+			tmp = tmp->next;
+			delete(t);
+		}
+		delete tmp;
+		root_ = NULL;
 	}
 }
 
-/**
- * Deletes node from list
- *
- */
-void LinkedList::removeNode(int index){
+void LinkedList::addNode(int info){
+	Node* t = new Node(info);
+	if (root_ == NULL){
+		t->next = t;
+		root_ = t;
+		return;
+	}
+	Node* tmp = root_;
+	while(tmp->next != root_){
+		tmp = tmp->next;
+	}
+	tmp->next = t;
+	t->next = root_;
+}
+
+void LinkedList::reverse(){
+
+
+}
+
+Node* at(int index){
+
 
 }
