@@ -1,35 +1,16 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "Resources.h"
+#include "LinkedList.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-struct Node{
-	int data;
-	Node* next;
-	Node(int x) : data(x), next(NULL){}
-};
-
-class LinkedList {
-	public:
-		LinkedList() : root_(NULL) {}
-		~LinkedList();
-		void addNode(int info);
-		void remove(int info);
-		Node* at(int index);
-		void reverse();
-	private:
-		Node *root_;
-		Node *tail_;
-		int num_items_;
-		int front_index_;
-};
-
 /*Credit to 
  *http://codereview.stackexchange.com/questions/4628/circular-linked-list-c
- *for circular linked list destructor and the insertion method 
+ *for circular linked list destructor and the insertion method.
+ *Code is slightly modified for my specific implementation of a node.
  */
 LinkedList::~LinkedList(){
 	if (root_){
@@ -45,7 +26,7 @@ LinkedList::~LinkedList(){
 }
 
 void LinkedList::addNode(int info){
-	Node* t = new Node(info);
+	Node* t = new Node(info, NULL);
 	if (root_ == NULL){
 		t->next = t;
 		root_ = t;
@@ -64,7 +45,13 @@ void LinkedList::reverse(){
 
 }
 
-Node* at(int index){
-
-
+Node* LinkedList::at(int index){
+		int i = 0;
+		Node* tmp = root_;
+		while (tmp->next!=root_ && i < index){
+			Node* t = tmp;
+			tmp = tmp->next;
+			i++;
+		}
+		return tmp;
 }

@@ -1,5 +1,5 @@
 /*CSE 274 students, I draw a textbox under the render() method.*/
-
+#include "LinkedList.h"
 #include "cinder/app/AppBasic.h"
 #include "cinder/Rand.h"
 #include "cinder/Color.h"
@@ -35,10 +35,10 @@ class TheRoyalSocietyApp : public AppBasic {
 	 int color_changer_;
 	 gl::Texture master_texture_font_;
 	 bool display_help;
-	 Vec2f master_size;
 	 int param_;
-	 const static int kInitialNumberOfShapes = 5;
 	 std::vector<int> shape_id_;
+	 LinkedList l;
+ 	 const static int kInitialNumberOfShapes = 5;
 };
 
 void TheRoyalSocietyApp::prepareSettings(Settings *settings){
@@ -71,7 +71,6 @@ void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
 
 void TheRoyalSocietyApp::setup(){
 		master_font_ = Font("Helvetica",32);
-		master_size = Vec2f( 100, 100 );
 		render();
 		display_help = true;
 		int id_tmp[] = {3,1,2,4};
@@ -86,8 +85,6 @@ void TheRoyalSocietyApp::render(){
 	TextBox tbox = TextBox().alignment( TextBox::CENTER ).font(master_font_).size( Vec2i( 512, 511) ).text( txt );
 	tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
 	tbox.setBackgroundColor( ColorA( 0.5, 0, 0, 1 ) );
-	Vec2i sz = tbox.measure();
-	console() << "Height: " << sz.y << endl;
 	master_texture_font_ = gl::Texture( tbox.render() );
 }
 
