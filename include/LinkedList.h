@@ -11,19 +11,20 @@ struct Node{
 class TheRoyalSocietyApp;
 
 class LinkedList {
-	public:
-		//TODO Implement constructor
-		LinkedList() : root_() {}
-		~LinkedList();
-		void addNode(int info);
-		void remove(int info);
-		Node* at(int index);
-		void reverse();
 	private:
 		Node *root_;
 		Node *tail_;
 		int num_items_;
-		int front_index_;
+	public:
+		LinkedList() : root_() {}
+		~LinkedList();
+		void addNode(int info);
+		Node* at(int index);
+		void bumpForward();
+		void bumpBack();
+		void reverse();
+		void setLength(int length);
+		int length();
 };
 
 #endif

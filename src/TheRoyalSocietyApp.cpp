@@ -36,9 +36,7 @@ class TheRoyalSocietyApp : public AppBasic {
 	 gl::Texture master_texture_font_;
 	 bool display_help;
 	 int param_;
-	 std::vector<int> shape_id_;
 	 LinkedList l;
- 	 const static int kInitialNumberOfShapes = 5;
 };
 
 void TheRoyalSocietyApp::prepareSettings(Settings *settings){
@@ -51,6 +49,7 @@ void TheRoyalSocietyApp::prepareSettings(Settings *settings){
 //TODO implement;
 void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
     if( event.getChar() == 'j' ){
+		l.bumpForward();
     } 
 	else if (event.getChar() == '?'){
 		display_help = !(display_help);
@@ -73,11 +72,24 @@ void TheRoyalSocietyApp::setup(){
 		master_font_ = Font("Helvetica",32);
 		render();
 		display_help = true;
-		int id_tmp[] = {3,1,2,4};
-		shape_id_ = std::vector<int>(kInitialNumberOfShapes);
-		shape_id_.assign(id_tmp,id_tmp+5);
 		color_changer_=0;
 		param_=0;
+		//Fill the list
+		l.addNode(1);
+		l.addNode(5);
+		l.addNode(2);
+		l.addNode(4);
+		l.addNode(3);
+		//Quality assurance--is what we're thinking is in the list actually in the list?
+		console() << "LENGTH: " << l.length() << std::endl;
+		for (int i = 0; i < l.length(); i++){
+			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
+		}
+		console() << "BUMP TEST" << std::endl;
+		l.bumpForward();
+		for (int i = 0; i < l.length(); i++){
+			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
+		}
 }
 
 void TheRoyalSocietyApp::render(){
@@ -102,31 +114,39 @@ void TheRoyalSocietyApp::update()
 
 void TheRoyalSocietyApp::draw(){
 	// clears out the window with black
-	gl::clear( Color( 0, 0, 0 ) );
-	for (int i = 0; i < 4; i++){
-		if (shape_id_[i] == 1){
+	gl::clear( Color( 260, 260, 260 ) );
+	int shape_id;
+	for (int i = 0; i <= 5; i++){
+		shape_id = l.at(i)->data;
+		if (shape_id == 1){
 			gl::color(Color8u(50,0,0));
 			gl::drawSolidCircle(Vec2f(310-color_changer_,310+color_changer_),200,100);
 			gl::color(Color8u(410,0,0));
 			gl::drawSolidCircle(Vec2f(300-color_changer_,300+color_changer_),200,100);
 		}
-		else if (shape_id_[i] == 2){
+		else if (shape_id == 2){
 			gl::color(Color8u(0,0,50));
 			gl::drawSolidCircle(Vec2f(410+color_changer_/2,410),200,10);
 			gl::color(Color8u(0,0,410));
 			gl::drawSolidCircle(Vec2f(400+color_changer_/2,400),200,10);
 		}
-		else if (shape_id_[i] == 3){
+		else if (shape_id == 3){
 			gl::color(Color8u(0,50,0));
 			gl::drawSolidCircle(Vec2f(510,310+color_changer_/5),200/(1+abs(tan((double) param_)),4));
 			gl::color(Color8u(0,410,0));
 			gl::drawSolidCircle(Vec2f(500,300+color_changer_/5),200/(1+abs(tan((double) param_))),4);
 		}
-		else if (shape_id_[i] == 4){
+		else if (shape_id == 4){
 			gl::color(Color8u(0,100,100));
 			gl::drawSolidCircle(Vec2f(310,110),color_changer_*2.5,3);
 			gl::color(Color8u(0,300,300));
 			gl::drawSolidCircle(Vec2f(300,100),color_changer_*2.6,3*rand()%2);
+		}
+		else if (shape_id > 4 && shape_id < 10){
+			gl::color(Color8u(100+rand()%100,rand()%100,rand()%100));
+			gl::drawSolidCircle(Vec2f(200+rand()%100,rand()%100+200),color_changer_*2.5,3);
+			gl::color(Color8u(100+rand()%100,rand()%100,rand()%100));
+			gl::drawSolidCircle(Vec2f(200+rand()%100,rand()%100+200),color_changer_*2.6,3*rand()%2);
 		}
 		else{
 			break;
