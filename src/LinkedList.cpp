@@ -7,7 +7,6 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-
 /*Credit to 
  *http://codereview.stackexchange.com/questions/4628/circular-linked-list-c
  *for circular linked list destructor and the insertion method.
@@ -26,6 +25,9 @@ LinkedList::~LinkedList(){
 	}
 }
 
+/**
+ * Appends a node to the circular list with the given data.
+ */
 void LinkedList::addNode(int info){
 	if (num_items_ < 0)
 		num_items_ = 0;
@@ -44,7 +46,10 @@ void LinkedList::addNode(int info){
 	t->next = root_;
 }
 
-void LinkedList::bumpForward(){
+/**
+ * Moves all nodes one space forward (tail becomes head).
+ */
+void LinkedList::bump(){
 	if (root_ != NULL){
 		Node* old_root = root_;
 		//Traverse the list to find the last node
@@ -67,14 +72,35 @@ void LinkedList::bumpForward(){
 	}
 }
 
-void bumpBack(){
 
+/**
+ * Credit to
+ * http://datastructuresblog.wordpress.com/2007/03/10/reversing-a-circular-single-linked-list-using-pointers/
+ * Slightly modified--the post's pointers weren't working for my code.
+ */
+void LinkedList::reverse()
+{
+  Node* tmp = NULL;
+  Node* cur = root_;
+  Node* next;
+  while (cur != NULL)
+  {
+    next = cur->next; 
+    cur->next = tmp;
+    tmp = cur;
+    cur = next;
+    if (cur == root_)
+    {
+      break;
+    }
+  }
+  root_->next = tmp;
+  root_ = tmp;
 }
 
-void LinkedList::reverse(){
-
-}
-
+/**
+ * Retrieves the particular index of the list
+ */
 Node* LinkedList::at(int index){
 		int i = 0;
 		Node* tmp = root_;
@@ -86,10 +112,17 @@ Node* LinkedList::at(int index){
 		return tmp;
 }
 
+
+/**
+ * Sets length
+ */
 void LinkedList::setLength(int length){
 	num_items_ = length;
 }
 
+/**
+ * Gets length
+ */
 int LinkedList::length(){
 	if (num_items_ < 0)
 		num_items_ = 0;

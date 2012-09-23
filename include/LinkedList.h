@@ -13,15 +13,13 @@ class TheRoyalSocietyApp;
 class LinkedList {
 	private:
 		Node *root_;
-		Node *tail_;
 		int num_items_;
 	public:
 		LinkedList() : root_() {}
 		~LinkedList();
 		void addNode(int info);
 		Node* at(int index);
-		void bumpForward();
-		void bumpBack();
+		void bump();
 		void reverse();
 		void setLength(int length);
 		int length();

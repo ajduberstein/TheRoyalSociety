@@ -35,7 +35,7 @@ class TheRoyalSocietyApp : public AppBasic {
 	 int color_changer_;
 	 gl::Texture master_texture_font_;
 	 bool display_help;
-	 int param_;
+	 double param_;
 	 LinkedList l;
 };
 
@@ -46,23 +46,15 @@ void TheRoyalSocietyApp::prepareSettings(Settings *settings){
 	settings->setFullScreen(false);
 }
 
-//TODO implement;
 void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
     if( event.getChar() == 'j' ){
-		l.bumpForward();
+		l.bump();
     } 
 	else if (event.getChar() == '?'){
 		display_help = !(display_help);
 	}
-	else if( event.getChar() == 'k' ){
-    }
 	else if( event.getChar() == '~' ){
-    }
-	else if( event.getChar() == '?' ){
-    }
-	else if( event.getChar() == 'y' ){
-    }
-	else if( event.getChar() == 'p' ){
+		l.reverse();
     }
 	else{
 	}
@@ -86,14 +78,19 @@ void TheRoyalSocietyApp::setup(){
 			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
 		}
 		console() << "BUMP TEST" << std::endl;
-		l.bumpForward();
+		l.bump();
+		for (int i = 0; i < l.length(); i++){
+			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
+		}
+		console() << "REVERSE TEST" << std::endl;
+		l.reverse();
 		for (int i = 0; i < l.length(); i++){
 			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
 		}
 }
 
 void TheRoyalSocietyApp::render(){
-	string txt = "Welcome to the window manager!\n\n Keybindings: \n j      Moves shapes down \n k      Moves shapes up \n ~     Reverses shape order \n y     Selects foremost shape \n p     Pastes shape(s)";
+	string txt = "Welcome to the window manager!\n\n Keybindings: \n j      Moves shapes up \n ~     Reverses shape order \n";
 	TextBox tbox = TextBox().alignment( TextBox::CENTER ).font(master_font_).size( Vec2i( 512, 511) ).text( txt );
 	tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
 	tbox.setBackgroundColor( ColorA( 0.5, 0, 0, 1 ) );
@@ -106,40 +103,41 @@ void TheRoyalSocietyApp::mouseDown( MouseEvent event )
 
 void TheRoyalSocietyApp::update()
 {
-	param_++;
-	color_changer_ = sin(param_*PI/1800)*100;
-	if (param_>200)
-		param_ = 0;
+	if (!display_help){
+		param_++;
+		color_changer_ = sin((param_)*PI/1800)*100;
+		if (param_>200)
+			param_ = 0;
+	}
 }
 
 void TheRoyalSocietyApp::draw(){
-	// clears out the window with black
 	gl::clear( Color( 260, 260, 260 ) );
 	int shape_id;
 	for (int i = 0; i <= 5; i++){
 		shape_id = l.at(i)->data;
 		if (shape_id == 1){
-			gl::color(Color8u(50,0,0));
+			gl::color(Color8u(15,77,146)); //Yale blue. http://en.wikipedia.org/wiki/Yale_Blue
 			gl::drawSolidCircle(Vec2f(310-color_changer_,310+color_changer_),200,100);
-			gl::color(Color8u(410,0,0));
+			gl::color(Color8u(5,7,46));
 			gl::drawSolidCircle(Vec2f(300-color_changer_,300+color_changer_),200,100);
 		}
 		else if (shape_id == 2){
-			gl::color(Color8u(0,0,50));
+			gl::color(Color8u(55,28,48));
 			gl::drawSolidCircle(Vec2f(410+color_changer_/2,410),200,10);
-			gl::color(Color8u(0,0,410));
+			gl::color(Color8u(165,28,48)); //Harvard crimson. http://en.wikipedia.org/wiki/Harvard_Crimson_(color)#Harvard_crimson
 			gl::drawSolidCircle(Vec2f(400+color_changer_/2,400),200,10);
 		}
 		else if (shape_id == 3){
 			gl::color(Color8u(0,50,0));
 			gl::drawSolidCircle(Vec2f(510,310+color_changer_/5),200/(1+abs(tan((double) param_)),4));
-			gl::color(Color8u(0,410,0));
+			gl::color(Color8u(0,112,60)); //Dartmouth green. http://en.wikipedia.org/wiki/Dartmouth_Green#Dartmouth_green 
 			gl::drawSolidCircle(Vec2f(500,300+color_changer_/5),200/(1+abs(tan((double) param_))),4);
 		}
 		else if (shape_id == 4){
-			gl::color(Color8u(0,100,100));
+			gl::color(Color8u(255,127,0)); //Princeton's colors. http://en.wikipedia.org/wiki/Princeton_University
 			gl::drawSolidCircle(Vec2f(310,110),color_changer_*2.5,3);
-			gl::color(Color8u(0,300,300));
+			gl::color(Color8u(0,0,0)); 
 			gl::drawSolidCircle(Vec2f(300,100),color_changer_*2.6,3*rand()%2);
 		}
 		else if (shape_id > 4 && shape_id < 10){
