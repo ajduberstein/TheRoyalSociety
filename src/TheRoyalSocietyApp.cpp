@@ -14,6 +14,8 @@
 #include <vector>
 //#include "TheRoyalSocietyApp.h"
 #include <math.h>
+#include "cinder/audio/Output.h"
+#include "cinder/audio/Io.h"
 #define PI 3.14159265
 
 using namespace ci;
@@ -39,6 +41,11 @@ class TheRoyalSocietyApp : public AppBasic {
 	 double param_;
 	 LinkedList l;
 	 int filler_; 
+	 gl::Texture concert_hall_;
+	 audio::SourceRef bass_;
+	 audio::SourceRef snare_;
+	 audio::SourceRef hihat_;
+	 audio::SourceRef haze_;
 };
 
 void TheRoyalSocietyApp::prepareSettings(Settings *settings){
@@ -50,8 +57,17 @@ void TheRoyalSocietyApp::prepareSettings(Settings *settings){
 
 void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
     if( event.getChar() == 'j' ){
+		audio::Output::play(bass_);
 		l.bump();
     } 
+	else if (event.getChar() == 'k'){
+		audio::Output::play(snare_);
+		l.bump();
+	}
+	else if (event.getChar() == 'l'){
+		audio::Output::play(hihat_);
+		l.bump();
+	}
 	else if (event.getChar() == '?'){
 		display_help = !(display_help);
 		filler_ = 0;
@@ -70,6 +86,11 @@ void TheRoyalSocietyApp::setup(){
 		display_help = true;
 		color_changer_=0;
 		param_=0;
+		//Bring the noise
+		bass_ = audio::load( loadResource(RES_BASS_HIT_ID));
+		snare_ = audio::load( loadResource(RES_SNARE_ID));
+		hihat_ = audio::load( loadResource(RES_HI_HAT));
+		haze_ = audio::load( loadResource(RES_HAZE));
 		//Fill the list
 		l.addNode(1);
 		l.addNode(5);
@@ -91,10 +112,11 @@ void TheRoyalSocietyApp::setup(){
 		for (int i = 0; i < l.length(); i++){
 			console()<< "AT NODE " << i << " IS " << l.at(i)->data << std::endl;
 		}
+		console() << "Concert hall picture at " << getAssetPath( "concerthall.jpg") << std::endl;
 }
 
 void TheRoyalSocietyApp::render(){
-	string txt = "Welcome to the Royal Society for Stacking Things Upon Other Things!\n\n Keybindings: \n j      Moves shapes up \n ~     Reverses shape order \n";
+	string txt = "Welcome to the Royal Society for Stacking Things Upon Other Things!\n\n Keybindings: \n j         Plays bass \n k        Plays snare \n l       Plays hi-hat \n ~     Reverses shape order \n";
 	TextBox tbox = TextBox().alignment( TextBox::CENTER ).font(master_font_).size( Vec2i( 512, 511) ).text( txt );
 	tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
 	tbox.setBackgroundColor( ColorA( 0.5, 0, 0, 1 ) );
