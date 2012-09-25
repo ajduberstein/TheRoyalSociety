@@ -1,4 +1,3 @@
-/*CSE 274 students, I draw a textbox under the render() method.*/
 #include "LinkedList.h"
 #include "cinder/app/AppBasic.h"
 #include "cinder/Rand.h"
@@ -12,7 +11,6 @@
 #include "cinder/Cinder.h"
 #include "cinder/Font.h"
 #include <vector>
-//#include "TheRoyalSocietyApp.h"
 #include <math.h>
 #include "cinder/audio/Output.h"
 #include "cinder/audio/Io.h"
@@ -74,7 +72,7 @@ void TheRoyalSocietyApp::keyDown( KeyEvent event ) {
 	}
 	else if( event.getChar() == '~' ){
 		l.reverse();
-    }
+    	}
 	else{
 	}
 }
@@ -123,8 +121,7 @@ void TheRoyalSocietyApp::render(){
 	master_texture_font_ = gl::Texture( tbox.render() );
 }
 
-void TheRoyalSocietyApp::mouseDown( MouseEvent event )
-{
+void TheRoyalSocietyApp::mouseDown( MouseEvent event ){
 }
 
 void TheRoyalSocietyApp::update(){
