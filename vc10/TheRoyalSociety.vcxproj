@@ -47,7 +47,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;C:\cinder\cinder_0.8.4_vc2010\boost;C:\cinder\cinder_0.8.4_vc2010\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\cinder_0.8.4_vc2010\boost;C:\cinder_0.8.4_vc2010\include;..\include;C:\cinder\cinder_0.8.4_vc2010\boost;C:\cinder\cinder_0.8.4_vc2010\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -58,11 +58,11 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>..\include;C:\cinder\cinder_0.8.4_vc2010\include;C:\cinder\cinder_0.8.4_vc2010\boost</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\cinder_0.8.4_vc2010\boost;C:\cinder_0.8.4_vc2010\include;..\include;C:\cinder\cinder_0.8.4_vc2010\include;C:\cinder\cinder_0.8.4_vc2010\boost</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>cinder_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\cinder\cinder_0.8.4_vc2010\lib\msw;C:\cinder\cinder_0.8.4_vc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\cinder_0.8.4_vc2010\lib\msw;C:\cinder_0.8.4_vc2010\lib;C:\cinder\cinder_0.8.4_vc2010\lib\msw;C:\cinder\cinder_0.8.4_vc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>

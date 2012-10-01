@@ -113,8 +113,8 @@ void TheRoyalSocietyApp::setup(){
 		console() << "Concert hall picture at " << getAssetPath( "concerthall.jpg") << std::endl;
 }
 
-void TheRoyalSocietyApp::render(){
-	string txt = "Welcome to the Royal Society for Stacking Things Upon Other Things!\n\n Keybindings: \n j         Plays bass \n k        Plays snare \n l       Plays hi-hat \n ~     Reverses shape order \n";
+void TheRoyalSocietyApp::render(){//Added a note saying that "?" shows/hides the info screen
+	string txt = "Welcome to the Royal Society for Stacking Things Upon Other Things!\n\n Keybindings: \n j         Plays bass \n k        Plays snare \n l       Plays hi-hat \n ~     Reverses shape order \n ?     Shows/hides this screen\n";
 	TextBox tbox = TextBox().alignment( TextBox::CENTER ).font(master_font_).size( Vec2i( 512, 511) ).text( txt );
 	tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
 	tbox.setBackgroundColor( ColorA( 0.5, 0, 0, 1 ) );
